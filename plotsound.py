@@ -1,7 +1,6 @@
 import sounddevice as sd
 import matplotlib.pyplot as plt
 import numpy as np
-import platform
 
 if __name__ == '__main__':
 
@@ -9,18 +8,14 @@ if __name__ == '__main__':
     # differently from tested list below. Uncomment the next line to see full list and try to pick correct one
     #print(sd.query_devices())
 
-    fs = 48000  		# Sample rate
-    duration = 100e-3   # Duration of recording
+    fs = 8000  		# Sample rate
+    duration = 5000e-3   # Duration of recording
 
-    if platform.system() == 'Windows':
-        # WDM-KS is needed since there are more than one MicNode device APIs (at least in Windows)
-        device = 'Mikrofon (SooperDooper 4ch), Windows WDM-KS'
-    elif platform.system() == 'Darwin':
-        device = 'MicNode_4_Ch'
-    else:
-        device ='default'
+ 
+    device = 'Mikrofon (SooperDooper 4ch), Windows WDM-KS'
 
-    myrecording = sd.rec(int(duration * fs), samplerate=fs, channels=1, dtype='int16', device=device)
+
+    myrecording = sd.rec(int(duration * fs), samplerate=fs, channels=2, dtype='int16', device=device)
     print('Waiting...')
     sd.wait()  # Wait until recording is finished
     print('Done!')
